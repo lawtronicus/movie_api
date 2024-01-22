@@ -1,24 +1,12 @@
-URL: /
-Timestamp: Thu Jan 18 2024 18:24:47 GMT+0900 (GMT+09:00)
-
-URL: /documentation.html
-Timestamp: Thu Jan 18 2024 18:28:10 GMT+0900 (GMT+09:00)
-
-URL: /documentation.html
-Timestamp: Thu Jan 18 2024 18:29:03 GMT+0900 (GMT+09:00)
-
-URL: /
-Timestamp: Thu Jan 18 2024 18:30:54 GMT+0900 (GMT+09:00)
-
-URL: /
-Timestamp: Thu Jan 18 2024 18:31:43 GMT+0900 (GMT+09:00)
-
-URL: /favicon.ico
-Timestamp: Thu Jan 18 2024 18:31:43 GMT+0900 (GMT+09:00)
-
-URL: /documentation.html
-Timestamp: Thu Jan 18 2024 18:32:10 GMT+0900 (GMT+09:00)
-
-URL: /favicon.ico
-Timestamp: Thu Jan 18 2024 18:32:10 GMT+0900 (GMT+09:00)
-
+::1 - - [22/Jan/2024:07:33:01 +0000] "GET / HTTP/1.1" 200 24 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:33:19 +0000] "GET /documentation.html HTTP/1.1" 404 157 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:33:46 +0000] "GET /documentation.html HTTP/1.1" - - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:33:50 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:34:04 +0000] "GET /movies HTTP/1.1" 200 2048 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:34:04 +0000] "GET /documentation.html HTTP/1.1" - - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:34:14 +0000] "GET /documentation HTTP/1.1" 301 193 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:34:14 +0000] "GET /documentation/ HTTP/1.1" 404 153 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:38:30 +0000] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:38:42 +0000] "GET /documentation.html HTTP/1.1" 200 358 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:48:19 +0000] "GET /documentation.html HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+::1 - - [22/Jan/2024:07:48:26 +0000] "GET /movies HTTP/1.1" 200 2051 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
