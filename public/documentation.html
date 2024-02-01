@@ -2,20 +2,342 @@
 <html lang="en">
   <head>
     <title>MOVIE API - Documentation</title>
+    <link rel="stylesheet" href="documentation-styles.css" />
   </head>
   <body>
     <header>
       <h1>Movie API</h1>
-      <p>Short description here</p>
+      <p>
+        This set of APIs will allow a user to get info about movies, directors,
+        and writers, as well as create an account and add movies to their list
+        of favorites.
+      </p>
     </header>
 
     <section>
-      <h2>Introduction</h2>
-      <p>More detailed explanation.</p>
+      <h2>API Overview</h2>
+      <p>
+        Welcome to our Basic Movie Information API. This simple yet effective
+        API provides essential details about a range of movies, ideal for anyone
+        interested in exploring film data.
+      </p>
+      <h3>Features</h3>
+      <ul>
+        <li>
+          <strong>Move Details:</strong> Access information like titles,
+          directors, cast, and genres.
+        </li>
+        <li>
+          <strong>Search Capability:</strong> Look up movie based on different
+          criteria.
+        </li>
+        <li>
+          <strong>Genre Classification:</strong> Explore movies sorted by genre.
+        </li>
+      </ul>
+      <h3>Target Users</h3>
+      <ul>
+        <li>
+          <strong>Developers: </strong> Integrate movie data into your
+          applications.
+        </li>
+        <li>
+          <strong>Movie Fans:</strong> Discover new films and learn more about
+          your favorites.
+        </li>
+        <li>
+          <strong>Content Creators:</strong> Use movie data to enrich your
+          content.
+        </li>
+      </ul>
+      <h3>Quick Start</h3>
+      <p>
+        Explore our endpoints to get movie information quickly and efficiently.
+        This API offers a straightforward way to access movie data, perfect for
+        various applications and projects.
+      </p>
+      <table>
+        <caption>
+          List of API Endpoints
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Business Logic</th>
+            <th scope="col">URL</th>
+            <th scope="col">HTTP Method</th>
+            <th scope="col">Request Body Format</th>
+            <th scope="col">Response Body Format</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Get a list of ALL movies to the user</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about all movies</td>
+          </tr>
+          <tr>
+            <td>Get information about a single movie by title</td>
+            <td>/movies/{movieTitle}</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              <p>
+                A JSON object holding data about s ingle film, containing a
+                title, director, writer, cast, description, image URL, true or
+                false value on whether it is currently featured, and genre.
+              </p>
+              <p><strong>Example:</strong></p>
+              <pre><code>
+{
+  "title": "Vertigo",
+  "director": ["Alfred Hitchcock"],
+  "writer": ["Alec Coppel", "Samuel A. Taylor"],
+  "cast": [
+    "James Stewart",
+    "Kim Novak",
+    "Barbara Bel Geddes",
+    "Tom Helmore",
+    "Henry Jones"
+  ],
+  "description": "description of Vertigo",
+  "imageUrl": "",
+  "featured": true,
+  "genre": ["suspense"]
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a movie's director</td>
+            <td>/movies/{title}/director</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object containing one key, director, with a value that is
+              an array of the director(s) of that movie.
+              <strong>Example:</strong>
+              <pre><code>
+{
+  "director": ["Alfred Hitchcock"]
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a movie's writer</td>
+            <td>/movies/{title}/writer</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object containing one key, writer, with a value that is an
+              array of the writer(s) for that movie.
+              <strong>Example:</strong>
+              <pre><code>
+{
+  "writer": ["Alfred Hitchcock"]
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a movie's cast</td>
+            <td>/movies/{title}/cast</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object containing one key, cast, with a value that is an
+              array of cast members of that movie.
+              <pre><code>
+{
+  "cast": [
+  "James Stewart",
+  "Kim Novak",
+  "Barbara Bel Geddes",
+  "Tom Helmore",
+  "Henry Jones",
+  ]
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a movie's description</td>
+            <td>/movies/{title}/description</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object containing one key, description, with a value that
+              is a string that is the description of that movie.
+              <pre><code>
+{
+  "Vertigo": "This is a description of Vertigo"
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a movie's image url</td>
+            <td>/movies/{title}/image</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object containing one key, imageUrl, with a value that is a
+              string of that url.
+              <strong>Example:</strong>
+              <pre><code>
+{
+  "imageUrl": "https://en.wikipedia.org/wiki/Alfred_Hitchcock#/media/File:Hitchcock,_Alfred_02.jpg"
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a movie's genre</td>
+            <td>/movies/{title}/genre</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object containing one key, genre, and a value that is an
+              array containing strings of the movie's genre(s).
+              <pre><code>
+{
+  "genre": ["suspense", "thriller"]
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get information about a director</td>
+            <td>/directors/{directorName}</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              <p>
+                A JSON object holding data about a director including birth
+                year, death year, a short bio, an array of films they directed,
+                an image url, and a boolean of whether they are featured or not.
+              </p>
+              <p><strong>Example:</strong></p>
+              <pre><code>
+{
+  "name": "Jean Vigo",
+  "birthYear": 1905,
+  "deathYear": 1934,
+  "filmography": [
+    "L'Atlante"
+  ],
+  "bio": "Vigo was born to Emily Clero and the militant anarchist Miguel Almereyda. Much of Vigo's early life was spent on the run with his parents. His father was imprisoned and probably murdered in Fresnes Prison on 13 August 1917, although the death was officially a suicide. Some speculated that Almereyda's death was hushed up on orders of the Radical politicians Louis Malvy and Joseph Caillaux, who were later punished for wartime treason.[1] The young Vigo was subsequently sent to boarding school under an assumed name, Jean Sales, to conceal his identity. Vigo was married and had a daughter, Luce Vigo, a film critic, in 1931. He died in 1934 of complications from tuberculosis, which he had contracted eight years earlier.",
+  "imageUrl": "",
+  "featured": true,
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a description of a movie genre</td>
+            <td>/genres/{genre}</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object with a key, the name of the genre, and a value that
+              is a string containing the description of the genre provided in
+              the endpoint.
+              <pre><code>
+  {
+    "thriller": "A film or literary genre that uses various techniques to provoke a sense of suspense and excitement in the audience."
+  }
+                </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Register a new user</td>
+            <td>/users/</td>
+            <td>POST</td>
+            <td>
+              <p>
+                A JSON object with a name property and a favoriteMovies
+                property.
+              </p>
+              <p><strong>Example:</strong></p>
+              <pre><code>
+{
+  "name": "Jane Smith",
+  "favoriteMovies": []
+}
+              </code></pre>
+            </td>
+            <td>
+              <p>
+                A JSON object with an id, a name property and a favoriteMovies
+                property.
+              </p>
+              <p><strong>Example:</strong></p>
+              <pre><code>
+{
+  "id": 12345,
+  "name": "Jane Smith",
+  "favoriteMovies": []
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Update user name</td>
+            <td>/users/{id}</td>
+            <td>PUT</td>
+            <td>
+              <p>
+                A JSON object with an id, a name property and a favoriteMovies
+                property.
+              </p>
+              <p><strong>Example:</strong></p>
+              <pre><code>
+{
+  "id": 12345,
+  "name": "Mike Tyson"
+}
+              </code></pre>
+            </td>
+            <td>
+              <p>A JSON object with new user name</p>
+              <strong>Example:</strong>
+              <pre><code>
+{
+  "id": 12345,
+  "name": "Jane Smith",
+  "favoriteMovies": []
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Add a movie to a users favorite movie array</td>
+            <td>/users/{id}/{movieTitle}</td>
+            <td>PUT</td>
+            <td>None</td>
+            <td>String response confirming movie has been added.</td>
+          </tr>
+          <tr>
+            <td>Remove a movie to a users favorite movie array</td>
+            <td>/users/{id}/{movieTitle}</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>String response confirming movie has been deleted.</td>
+          </tr>
+          <tr>
+            <td>Delete a user</td>
+            <td>/users/{id}/</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>
+              String response confirming the user with the given ID has been
+              deleted.
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </section>
-
-    <footer>
-      <p>Footer</p>
-    </footer>
   </body>
 </html>

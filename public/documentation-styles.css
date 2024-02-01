@@ -1,0 +1,103 @@
+body {
+  margin: 24px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Table Styles */
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid darkgrey;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+/* Header Styles */
+thead {
+  background-color: rgb(128, 128, 128);
+  color: white;
+}
+
+th {
+  font-weight: bold;
+}
+
+/* Zebra Striping for Rows */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Caption Styles */
+caption {
+  padding: 8px;
+  font-weight: bold;
+  text-align: left;
+  font-size: 1.1em;
+  border: 1px solid darkgrey;
+  background-color: darkblue;
+  color: white;
+}
+
+/* Description and Example Styles */
+p {
+  margin: 0 0 10px 0;
+}
+
+pre {
+  background-color: #f0f0f0;
+  border-left: 3px solid #9e9e9e;
+  padding: 5px;
+  font-family: "Courier New", Courier, monospace;
+  overflow-x: auto;
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+code {
+  font-size: 0.9em;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 600px) {
+  table {
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr,
+  td {
+    display: block;
+  }
+
+  td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: bold;
+    text-align: left;
+  }
+}
