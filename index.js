@@ -191,13 +191,13 @@ const directors = [
     filmography: ["L'Atlante"],
     bio: "Vigo was born to Emily Clero and the militant anarchist Miguel Almereyda. Much of Vigo's early life was spent on the run with his parents. His father was imprisoned and probably murdered in Fresnes Prison on 13 August 1917, although the death was officially a suicide. Some speculated that Almereyda's death was hushed up on orders of the Radical politicians Louis Malvy and Joseph Caillaux, who were later punished for wartime treason.[1] The young Vigo was subsequently sent to boarding school under an assumed name, Jean Sales, to conceal his identity. Vigo was married and had a daughter, Luce Vigo, a film critic, in 1931. He died in 1934 of complications from tuberculosis, which he had contracted eight years earlier.",
     imageUrl: "",
-    featured: true,
   },
 ];
 
 const genres = [
   {
-    thriller:
+    name: thriller,
+    description:
       "A film or literary genre that uses various techniques to provoke a sense of suspense and excitement in the audience.",
   },
 ];
@@ -258,7 +258,7 @@ app.get("/movies/:title/writer", (req, res) => {
   } else {
     res
       .status(404)
-      .send("Move with the title " + req.params.title + " was not found");
+      .send("Movie with the title " + req.params.title + " was not found");
   }
 });
 
@@ -273,7 +273,7 @@ app.get("/movies/:title/cast", (req, res) => {
   } else {
     res
       .status(404)
-      .send("Move with the title " + req.params.title + " was not found");
+      .send("Movie with the title " + req.params.title + " was not found");
   }
 });
 
@@ -288,7 +288,7 @@ app.get("/movies/:title/description", (req, res) => {
   } else {
     res
       .status(404)
-      .send("Move with the title " + req.params.title + " was not found");
+      .send("Movie with the title " + req.params.title + " was not found");
   }
 });
 
@@ -303,7 +303,7 @@ app.get("/movies/:title/image", (req, res) => {
   } else {
     res
       .status(404)
-      .send("Move with the title " + req.params.title + " was not found");
+      .send("Movie with the title " + req.params.title + " was not found");
   }
 });
 
@@ -318,7 +318,7 @@ app.get("/movies/:title/genre", (req, res) => {
   } else {
     res
       .status(404)
-      .send("Move with the title " + req.params.title + " was not found");
+      .send("Movie with the title " + req.params.title + " was not found");
   }
 });
 
@@ -337,7 +337,7 @@ app.get("/directors/:directorName", (req, res) => {
 // get film genre description
 app.get("/genres/:genreName", (req, res) => {
   const { genreName } = req.params;
-  const genre = genres.find((genre) => genre.hasOwnProperty(genreName));
+  const genre = genres.find((genre) => genre.name === genreName);
 
   if (genre) {
     res.status(200).json(genre);
