@@ -103,3 +103,4 @@
 ::1 - - [01/Feb/2024:01:58:24 +0000] "DELETE /users/12345/The%20Fountain HTTP/1.1" 200 64 "-" "PostmanRuntime/7.36.1"
 ::1 - - [01/Feb/2024:01:58:33 +0000] "POST /users/12345 HTTP/1.1" 404 151 "-" "PostmanRuntime/7.36.1"
 ::1 - - [01/Feb/2024:01:58:57 +0000] "DELETE /users/12345 HTTP/1.1" 200 36 "-" "PostmanRuntime/7.36.1"
+::1 - - [03/Feb/2024:10:06:06 +0000] "GET /genres/thriller HTTP/1.1" 200 152 "-" "PostmanRuntime/7.36.1"

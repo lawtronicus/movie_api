@@ -196,7 +196,7 @@ const directors = [
 
 const genres = [
   {
-    name: thriller,
+    name: "thriller",
     description:
       "A film or literary genre that uses various techniques to provoke a sense of suspense and excitement in the audience.",
   },
