@@ -25,7 +25,7 @@
       <ul>
         <li>
           <strong>Move Details:</strong> Access information like titles,
-          directors, cast, and genres.
+          directors, main actor, and genres.
         </li>
         <li>
           <strong>Search Capability:</strong> Look up movie based on different
@@ -84,80 +84,100 @@
             <td>None</td>
             <td>
               <p>
-                A JSON object holding data about s ingle film, containing a
-                title, director, writer, cast, description, image URL, true or
-                false value on whether it is currently featured, and genre.
+                A JSON object holding data about single film, containing an id,
+                title, description, image url, array of writers, array of genre
+                ids, array of director ids, a main actor id, and a boolean value
+                on whether it is currently featured, and genre.
               </p>
               <p><strong>Example:</strong></p>
               <pre><code>
 {
-  "title": "Vertigo",
-  "director": ["Alfred Hitchcock"],
-  "writer": ["Alec Coppel", "Samuel A. Taylor"],
-  "cast": [
-    "James Stewart",
-    "Kim Novak",
-    "Barbara Bel Geddes",
-    "Tom Helmore",
-    "Henry Jones"
-  ],
-  "description": "description of Vertigo",
-  "imageUrl": "",
-  "featured": true,
-  "genre": ["suspense"]
+    "_id": "65c58d6de1429efe8b51c815",
+    "title": "Vertigo",
+    "description": "A former police detective juggles wrestling with his personal demons and becoming obsessed with a hauntingly beautiful woman.",
+    "imageurl": "",
+    "featured": false,
+    "writers": [
+        "Alec Coppel",
+        "Samuel A. Taylor"
+    ],
+    "genres": [
+        "65cf05a49d11684980651c0e"
+    ],
+    "directors": [
+        "65c5962ae1429efe8b51c818"
+    ],
+    "mainActor": "65cf0b9c9d11684980651c19"
 }
               </code></pre>
             </td>
           </tr>
           <tr>
             <td>Get a movie's director</td>
-            <td>/movies/{title}/director</td>
+            <td>/movies/{title}/directors</td>
             <td>GET</td>
             <td>None</td>
             <td>
-              A JSON object containing one key, director, with a value that is
-              an array of the director(s) of that movie.
-              <strong>Example:</strong>
+              <p>
+                A JSON object containing two keys, title and directors, the keys
+                for which being the title of the movie and an array of director
+                objects with an id, name, bio, date of birth (dob) and date of
+                death (dod) of the director.
+              </p>
+              <p><strong>Example:</strong></p>
               <pre><code>
 {
-  "director": ["Alfred Hitchcock"]
-}
-              </code></pre>
-            </td>
-          </tr>
-          <tr>
-            <td>Get a movie's writer</td>
-            <td>/movies/{title}/writer</td>
-            <td>GET</td>
-            <td>None</td>
-            <td>
-              A JSON object containing one key, writer, with a value that is an
-              array of the writer(s) for that movie.
-              <strong>Example:</strong>
-              <pre><code>
-{
-  "writer": ["Alfred Hitchcock"]
-}
-              </code></pre>
-            </td>
-          </tr>
-          <tr>
-            <td>Get a movie's cast</td>
-            <td>/movies/{title}/cast</td>
-            <td>GET</td>
-            <td>None</td>
-            <td>
-              A JSON object containing one key, cast, with a value that is an
-              array of cast members of that movie.
-              <pre><code>
-{
-  "cast": [
-  "James Stewart",
-  "Kim Novak",
-  "Barbara Bel Geddes",
-  "Tom Helmore",
-  "Henry Jones",
+  "title": "Vertigo",
+  "directors": [
+      {
+          "_id": "65c5962ae1429efe8b51c818",
+          "name": "Alfred Hitchcock",
+          "bio": "An English film director and producer, widely regarded as one of the most influential figures in the history of cinema. Known as the \"Master of Suspense\", he directed over 50 feature films.",
+          "dob": "1899-08-13",
+          "dod": "1980-04-29"
+      }
   ]
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a movie's writers</td>
+            <td>/movies/{title}/writers</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              <p>
+                A JSON object containing two keys, title and writers, the values
+                of which are the title of the movie and an array of strings with
+                the names of the writers.
+              </p>
+              <p><strong>Example:</strong></p>
+              <pre><code>
+{
+  "title": "Vertigo",
+  "writers": [
+      "Alec Coppel",
+      "Samuel A. Taylor"
+  ]
+}
+              </code></pre>
+            </td>
+          </tr>
+          <tr>
+            <td>Get a movie's main actor</td>
+            <td>/movies/{title}/main_actor</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>
+              A JSON object containing the title of the movie request, as well
+              as the id, name, date of birth (dob), and bio of the main actor.
+              <pre><code>
+{
+  "_id": "65cf0b9c9d11684980651c19",
+  "name": "James Stewart",
+  "dob": "1908-05-20T00:00:00.000Z",
+  "bio": "American actor and military officer, famous for his role as John 'Scottie' Ferguson in 'Vertigo'."
 }
               </code></pre>
             </td>
@@ -168,11 +188,12 @@
             <td>GET</td>
             <td>None</td>
             <td>
-              A JSON object containing one key, description, with a value that
-              is a string that is the description of that movie.
+              A JSON object with the title of hte movie request and a
+              description of that movie.
               <pre><code>
 {
-  "Vertigo": "This is a description of Vertigo"
+  "title": "Vertigo",
+  "description": "A former police detective juggles wrestling with his personal demons and becoming obsessed with a hauntingly beautiful woman."
 }
               </code></pre>
             </td>
@@ -183,12 +204,13 @@
             <td>GET</td>
             <td>None</td>
             <td>
-              A JSON object containing one key, imageUrl, with a value that is a
-              string of that url.
+              A JSON object containing the title of the movie and an image url
+              showing an image of that movie.
               <strong>Example:</strong>
               <pre><code>
 {
-  "imageUrl": "https://en.wikipedia.org/wiki/Alfred_Hitchcock#/media/File:Hitchcock,_Alfred_02.jpg"
+    "title": "Vertigo",
+    "imageurl": ""
 }
               </code></pre>
             </td>
@@ -199,11 +221,19 @@
             <td>GET</td>
             <td>None</td>
             <td>
-              A JSON object containing one key, genre, and a value that is an
-              array containing strings of the movie's genre(s).
+              A JSON object containing the title of the movie and an array of
+              movie genres that apply to the movie. Each genre is an object
+              containing an id, name, and description.
               <pre><code>
 {
-  "genre": ["suspense", "thriller"]
+  "title": "Vertigo",
+  "genres": [
+      {
+          "_id": "65cf05a49d11684980651c0e",
+          "name": "Thriller",
+          "description": "Thriller is a genre of fiction that combines suspense, tension, and excitement as the main elements. It often focuses on characters in dangerous situations, aiming to keep the audience on the edge of their seats."
+      }
+  ]
 }
               </code></pre>
             </td>
@@ -215,22 +245,17 @@
             <td>None</td>
             <td>
               <p>
-                A JSON object holding data about a director including birth
-                year, death year, a short bio, an array of films they directed,
-                an image url, and a boolean of whether they are featured or not.
+                A JSON object holding data about a director including the name,
+                date of birth (dob), date of death (dod), and bio.
               </p>
               <p><strong>Example:</strong></p>
               <pre><code>
 {
-  "name": "Jean Vigo",
-  "birthYear": 1905,
-  "deathYear": 1934,
-  "filmography": [
-    "L'Atlante"
-  ],
-  "bio": "Vigo was born to Emily Clero and the militant anarchist Miguel Almereyda. Much of Vigo's early life was spent on the run with his parents. His father was imprisoned and probably murdered in Fresnes Prison on 13 August 1917, although the death was officially a suicide. Some speculated that Almereyda's death was hushed up on orders of the Radical politicians Louis Malvy and Joseph Caillaux, who were later punished for wartime treason.[1] The young Vigo was subsequently sent to boarding school under an assumed name, Jean Sales, to conceal his identity. Vigo was married and had a daughter, Luce Vigo, a film critic, in 1931. He died in 1934 of complications from tuberculosis, which he had contracted eight years earlier.",
-  "imageUrl": "",
-  "featured": true,
+  "_id": "65c5962ae1429efe8b51c818",
+  "name": "Alfred Hitchcock",
+  "bio": "An English film director and producer, widely regarded as one of the most influential figures in the history of cinema. Known as the \"Master of Suspense\", he directed over 50 feature films.",
+  "dob": "1899-08-13",
+  "dod": "1980-04-29"
 }
               </code></pre>
             </td>
@@ -241,14 +266,15 @@
             <td>GET</td>
             <td>None</td>
             <td>
-              A JSON object with two keys, name and description, and their
+              A JSON object with three keys, id, name and description, and their
               matching values which are the name of the genre and its
               description. the endpoint.
               <pre><code>
-  {
-    "name": "thriller",
-    "description": "A film or literary genre that uses various techniques to provoke a sense of suspense and excitement in the audience."
-  }
+{
+  "_id": "65cf05a49d11684980651c0e",
+  "name": "Thriller",
+  "description": "Thriller is a genre of fiction that combines suspense, tension, and excitement as the main elements. It often focuses on characters in dangerous situations, aiming to keep the audience on the edge of their seats."
+}
                 </code></pre>
             </td>
           </tr>
@@ -258,28 +284,33 @@
             <td>POST</td>
             <td>
               <p>
-                A JSON object with a name property and a favoriteMovies
-                property.
+                A JSON object with a username, password, email, and dob (DATE).
               </p>
               <p><strong>Example:</strong></p>
               <pre><code>
 {
-  "name": "Jane Smith",
-  "favoriteMovies": []
+  "username": "Mary Shelley",
+  "password": "abcde12345",
+  "email": "mary.shelley@books.com",
+  "dob": "12/12/1984"
 }
               </code></pre>
             </td>
             <td>
               <p>
-                A JSON object with an id, a name property and a favoriteMovies
-                property.
+                A JSON object with an id, username, password, email, dob, and
+                favorite movies array.
               </p>
               <p><strong>Example:</strong></p>
               <pre><code>
 {
-  "id": 12345,
-  "name": "Jane Smith",
-  "favoriteMovies": []
+  "username": "Mary Shelley",
+  "password": "abcde12345",
+  "email": "mary.shelley@books.com",
+  "dob": "1984-12-11T15:00:00.000Z",
+  "favorite_movies": [],
+  "_id": "65d07837596546491c5f19b5",
+  "__v": 0
 }
               </code></pre>
             </td>
@@ -290,42 +321,85 @@
             <td>PUT</td>
             <td>
               <p>
-                A JSON object with an id, a name property and a favoriteMovies
-                property.
+                A JSON object with an and the property to change, which can be
+                username, email, password, or date of birth (dob).
               </p>
               <p><strong>Example:</strong></p>
               <pre><code>
 {
-  "id": 12345,
-  "name": "Mike Tyson"
+  "username": "User Five Guy",
+  "password": "abcde12345",
+  "email": "userfiveguy@example.com",
+  "dob": "Date(1995-12-17T00:00:00.000Z)"
 }
               </code></pre>
             </td>
             <td>
-              <p>A JSON object with new user name</p>
+              <p>A JSON object with the updated user info</p>
               <strong>Example:</strong>
               <pre><code>
 {
-  "id": 12345,
-  "name": "Jane Smith",
-  "favoriteMovies": []
+  "_id": "65cf17c59d11684980651c1e",
+  "username": "User Five Guy",
+  "email": "userfiveguy@example.com",
+  "password": "abcde12345",
+  "dob": "1995-12-17T00:00:00.000Z",
+  "favorite_movies": [
+      "65c58d6de1429efe8b51c80f"
+  ]
 }
               </code></pre>
             </td>
           </tr>
           <tr>
             <td>Add a movie to a users favorite movie array</td>
-            <td>/users/{id}/{movieTitle}</td>
+            <td>/users/{userId}/{movieTitle}</td>
             <td>PUT</td>
             <td>None</td>
-            <td>String response confirming movie has been added.</td>
+            <td>
+              <p>
+                A JSON object of the user with the updated favorite_movies array
+              </p>
+              <strong>Example:</strong>
+              <pre><code>
+{
+  "_id": "65cf17c59d11684980651c1e",
+  "username": "User Five Guy",
+  "email": "userfiveguy@example.com",
+  "password": "abcde12345",
+  "dob": "1995-12-17T00:00:00.000Z",
+  "favorite_movies": [
+      "65c58d6de1429efe8b51c80f",
+      "65c58d6de1429efe8b51c815"
+  ]
+}
+              </code></pre>
+            </td>
           </tr>
           <tr>
             <td>Remove a movie to a users favorite movie array</td>
-            <td>/users/{id}/{movieTitle}</td>
+            <td>/users/{userId}/{movieTitle}</td>
             <td>DELETE</td>
             <td>None</td>
-            <td>String response confirming movie has been deleted.</td>
+            <td>
+              <p>
+                A JSON object of the user with the users updated favorite_movies
+                array
+              </p>
+              <strong>Example:</strong>
+              <pre><code>
+{
+  "_id": "65cf17c59d11684980651c1e",
+  "username": "User Five Guy",
+  "email": "userfiveguy@example.com",
+  "password": "abcde12345",
+  "dob": "1995-12-17T00:00:00.000Z",
+  "favorite_movies": [
+      "65c58d6de1429efe8b51c80f"
+  ]
+}
+              </code></pre>
+            </td>
           </tr>
           <tr>
             <td>Delete a user</td>
