@@ -250,3 +250,4 @@
 ::1 - - [23/Feb/2024:02:01:54 +0000] "PUT /users/65d7f38275e9d6d02160be94/ HTTP/1.1" 200 181 "-" "PostmanRuntime/7.36.1"
 ::1 - - [23/Feb/2024:02:02:09 +0000] "PUT /users/65d7f38275e9d6d02160be94/ HTTP/1.1" 200 182 "-" "PostmanRuntime/7.36.1"
 ::1 - - [23/Feb/2024:02:02:57 +0000] "PUT /users/65d7f38275e9d6d02160be94/ HTTP/1.1" 422 132 "-" "PostmanRuntime/7.36.1"
+127.0.0.1 - - [23/Feb/2024:06:39:11 +0000] "GET /movies/ HTTP/1.1" 201 5019 "-" "PostmanRuntime/7.36.1"
