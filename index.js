@@ -8,12 +8,31 @@ const { Movie } = require("./models.js");
 mongoose = require("mongoose");
 Models = require("./models.js");
 
+const { check, validationResult } = require("express-validator");
+
 const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
 const Directors = Models.Director;
 const Actors = Models.Actor;
 const Genres = Models.Genre;
+
+const cors = require("cors");
+
+let allowedOrigins = ["http://localhost8080", "http://testsite.com"];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOfg(origin) === -1) {
+        let message =
+          "The CORS policy for this application doesn't allow access form origin " +
+          origin;
+      }
+      return callback(null, true);
+    },
+  })
+);
 
 mongoose.connect("mongodb://localhost:27017/mfDB");
 
@@ -307,34 +326,52 @@ app.get(
 );
 
 //Add a user
-app.post("/users", async (req, res) => {
-  console.log(req.body);
-  await Users.findOne({ Username: req.body.username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.username + " already exists");
-      } else {
-        Users.create({
-          username: req.body.username,
-          password: req.body.password,
-          email: req.body.email,
-          dob: req.body.dob,
-          favorite_movies: [],
-        })
-          .then((user) => {
-            res.status(201).json(user);
+app.post(
+  "/users",
+  [
+    check("username", "username is required").isLength({ min: 5 }),
+    check(
+      "username",
+      "username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("password", "password is required").not().isEmpty(),
+    check("email", "email does not appear to be valid").isEmail(),
+  ],
+  async (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.password);
+    await Users.findOne({ Username: req.body.username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.username + " already exists");
+        } else {
+          Users.create({
+            username: req.body.username,
+            password: hashedPassword,
+            email: req.body.email,
+            dob: req.body.dob,
+            favorite_movies: [],
           })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send("Error: " + error);
-          });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Error: " + error);
-    });
-});
+            .then((user) => {
+              res.status(201).json(user);
+            })
+            .catch((error) => {
+              console.error(error);
+              res.status(500).send("Error: " + error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      });
+  }
+);
 
 // Get a user by id
 app.get(
@@ -355,8 +392,22 @@ app.get(
 // update user info
 app.put(
   "/users/:id/",
+  [
+    check("username", "username is required").isLength({ min: 5 }),
+    check(
+      "username",
+      "username contains non alphanumeric characters - not allowed."
+    ).isAlphanumeric(),
+    check("password", "password is required").not().isEmpty(),
+    check("email", "email does not appear to be valid").isEmail(),
+  ],
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     // Condition to ensure the user is attempting to change their own info
     if (req.user.id !== req.params.id) {
       return res.status(400).send("Permission denied");
@@ -462,7 +513,9 @@ app.delete(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     // Condition to ensure the user is attempting to change their own info
-    if (req.user.id !== req.params.id) {
+    if (req.user.id !== req.params.userId) {
+      console.log(req.user.id);
+      console.log(req.params.userId);
       return res.status(400).send("Permission denied");
     }
     try {
@@ -484,6 +537,7 @@ app.use((err, req, res, next) => {
   res.status(500).send("There was an error");
 });
 
-app.listen(8080, () => {
-  console.log("Your app is listening on port 8080.");
+const port = process.env.port || 8080;
+app.listen(port, "0.0.0.0", () => {
+  console.log("Listening on Port " + port);
 });
