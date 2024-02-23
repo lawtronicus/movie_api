@@ -408,6 +408,7 @@ app.put(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     let errors = validationResult(req);
+    let hashedPassword = Users.hashPassword(req.body.password);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
@@ -421,7 +422,7 @@ app.put(
       {
         $set: {
           username: req.body.username,
-          password: req.body.password,
+          password: hashedPassword,
           email: req.body.email,
           dob: req.body.birthday,
         },
