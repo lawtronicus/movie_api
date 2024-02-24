@@ -333,11 +333,6 @@ app.get(
 app.post(
   "/users",
   [
-    check("username", "username is required").isLength({ min: 5 }),
-    check(
-      "username",
-      "username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
     check("password", "password is required").not().isEmpty(),
     check("email", "email does not appear to be valid").isEmail(),
   ],
@@ -347,18 +342,17 @@ app.post(
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-
     let hashedPassword = Users.hashPassword(req.body.password);
-    await Users.findOne({ Username: req.body.username })
+    await Users.findOne({ email: req.body.email })
       .then((user) => {
         if (user) {
           return res.status(400).send(req.body.username + " already exists");
         } else {
           Users.create({
-            username: req.body.username,
+            username: null,
             password: hashedPassword,
             email: req.body.email,
-            dob: req.body.dob,
+            dob: null,
             favorite_movies: [],
           })
             .then((user) => {
