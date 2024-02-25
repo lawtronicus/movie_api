@@ -9,6 +9,7 @@ mongoose = require("mongoose");
 Models = require("./models.js");
 
 const { check, validationResult } = require("express-validator");
+const { isUnique } = require("./validation.js");
 
 const app = express();
 const Movies = Models.Movie;
@@ -391,16 +392,27 @@ app.get(
 app.put(
   "/users/:id/",
   [
-    check("username", "username is required").isLength({ min: 5 }),
-    check(
-      "username",
-      "username contains non alphanumeric characters - not allowed."
-    ).isAlphanumeric(),
-    check("password", "password is required").not().isEmpty(),
-    check("email", "email does not appear to be valid").isEmail(),
+    check("username")
+      .optional()
+      .isLength({ min: 5 })
+      .withMessage("username must be at least 5 characters")
+      .isAlphanumeric()
+      .withMessage(
+        "username contains non alphanumeric characters - not allowed."
+      ),
+    check("email")
+      .optional()
+      .isEmail()
+      .withMessage("email does not appear to be valid"),
+    check("dob")
+      .optional()
+      .isISO8601()
+      .withMessage("Date of birth must be a valid ISO 8601 date"),
   ],
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    console.log("username: ", req.body.username);
+    console.log("password: ", req.body.password);
     let errors = validationResult(req);
     let hashedPassword = Users.hashPassword(req.body.password);
 
@@ -411,12 +423,25 @@ app.put(
     if (req.user.id !== req.params.id) {
       return res.status(400).send("Permission denied");
     }
+
+    // Condition to check that the username is unique
+    const isUsernameUnique = await isUnique("username", req.body.username);
+
+    if (!isUsernameUnique && req.body.username != null) {
+      return res.status(400).send({ message: "Username already exists." });
+    }
+
+    const thisUser = await Users.findOne({ _id: req.params.id });
+    const isValid = thisUser.validatePassword(req.body.password);
+    if (!isValid) {
+      return res.status(400).send({ message: "Password incorrect" });
+    }
+
     await Users.findOneAndUpdate(
       { _id: req.params.id },
       {
         $set: {
           username: req.body.username,
-          password: hashedPassword,
           email: req.body.email,
           dob: req.body.birthday,
         },
