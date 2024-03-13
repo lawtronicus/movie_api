@@ -99,16 +99,6 @@ app.get(
         console.error(err);
         res.status(500).send("Error: " + err);
       });
-    /*
-    const { title } = req.params;
-  const movie = topMovies.find((movie) => movie.title === title);
-
-  if (movie) {
-    res.status(200).json(movie);
-  } else {
-    res.status(400).send(`The movie ${movie} does not exist`);
-  }
-  */
   }
 );
 
