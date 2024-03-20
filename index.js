@@ -85,7 +85,7 @@ app.get(
   "/movies/:title",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    await Movies.findOne({ title: req.params.title })
+    Movies.findOne({ title: req.params.title })
       .populate("directors")
       .populate("main_actor")
       .then((movie) => {
