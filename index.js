@@ -36,10 +36,10 @@ app.use(
 );
 
 // set to local connection
-mongoose.connect("mongodb://localhost:27017/mfDB");
+//mongoose.connect("mongodb://localhost:27017/mfDB");
 
 //set to Atlas connection
-//mongoose.connect(process.env.CONNECTION_URI);
+mongoose.connect(process.env.CONNECTION_URI);
 
 // set up bodyParser
 
