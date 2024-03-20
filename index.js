@@ -36,10 +36,10 @@ app.use(
 );
 
 // set to local connection
-//mongoose.connect("mongodb://localhost:27017/mfDB");
+mongoose.connect("mongodb://localhost:27017/mfDB");
 
 //set to Atlas connection
-mongoose.connect(process.env.CONNECTION_URI);
+//mongoose.connect(process.env.CONNECTION_URI);
 
 // set up bodyParser
 
@@ -71,6 +71,8 @@ app.use(express.static("public"));
 // get a list of all movies
 app.get("/movies", async (req, res) => {
   await Movies.find()
+    .populate("directors")
+    .populate("main_actor")
     .then((users) => {
       res.status(201).json(users);
     })

@@ -273,3 +273,6 @@
 127.0.0.1 - - [25/Feb/2024:07:56:49 +0000] "PUT /users/65d7f4e475e9d6d02160be97 HTTP/1.1" 400 38 "-" "PostmanRuntime/7.36.3"
 127.0.0.1 - - [25/Feb/2024:07:56:56 +0000] "PUT /users/65d7f4e475e9d6d02160be97 HTTP/1.1" 400 32 "-" "PostmanRuntime/7.36.3"
 127.0.0.1 - - [25/Feb/2024:07:57:01 +0000] "PUT /users/65d7f4e475e9d6d02160be97 HTTP/1.1" 200 222 "-" "PostmanRuntime/7.36.3"
+127.0.0.1 - - [20/Mar/2024:09:58:31 +0000] "GET /movies HTTP/1.1" 201 5218 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+127.0.0.1 - - [20/Mar/2024:09:58:31 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/movies" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+127.0.0.1 - - [20/Mar/2024:10:00:10 +0000] "GET /movies/ HTTP/1.1" 201 10139 "-" "PostmanRuntime/7.36.1"
