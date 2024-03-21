@@ -73,6 +73,7 @@ app.get("/movies", async (req, res) => {
   await Movies.find()
     .populate("directors")
     .populate("main_actor")
+    .populate("genres")
     .then((users) => {
       res.status(201).json(users);
     })
