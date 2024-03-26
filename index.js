@@ -341,10 +341,10 @@ app.post(
           return res.status(400).send(req.body.username + " already exists");
         } else {
           Users.create({
-            username: null,
+            username: req.body.username || null,
             password: hashedPassword,
             email: req.body.email,
-            dob: null,
+            dob: req.body.dob || null,
             favorite_movies: [],
           })
             .then((user) => {
