@@ -69,19 +69,23 @@ app.get("/", (req, res) => {
 app.use(express.static("public"));
 
 // get a list of all movies
-app.get("/movies", async (req, res) => {
-  await Movies.find()
-    .populate("directors")
-    .populate("main_actor")
-    .populate("genres")
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+app.get(
+  "/movies",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    await Movies.find()
+      .populate("directors")
+      .populate("main_actor")
+      .populate("genres")
+      .then((users) => {
+        res.status(201).json(users);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 // get info of a given movie
 app.get(
