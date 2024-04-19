@@ -462,6 +462,8 @@ app.put(
   "/users/:userId/:movieTitle",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
+    console.log("req.user.id: ", req.user.id);
+    console.log("req.params.userId: ", req.params.userId);
     // Condition to ensure the user is attempting to change their own info
     if (req.user.id !== req.params.userId) {
       return res.status(400).send("Permission denied");
