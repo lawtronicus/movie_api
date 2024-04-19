@@ -497,7 +497,7 @@ app.delete(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     // Condition to ensure the user is attempting to change their own info
-    if (req.user.id !== req.params.id) {
+    if (req.user.id !== req.params.userId) {
       return res.status(400).send("Permission denied");
     }
     const { userId, movieTitle } = req.params;
