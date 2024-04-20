@@ -1,3 +1,6 @@
+Models = require("./models.js");
+const Users = Models.User;
+
 const jwtSecret = "your_jwt_secret";
 
 const jwt = require("jsonwebtoken");
