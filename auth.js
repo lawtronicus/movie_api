@@ -28,6 +28,7 @@ module.exports = (router) => {
       }
 
       // Use Mongoose to find the user by ID and populate 'favorite_movies'
+      console.log("user id ", user._id);
       Users.findById(user._id)
         .populate("favorite_movies")
         .exec((err, populatedUser) => {
