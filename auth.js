@@ -26,13 +26,24 @@ module.exports = (router) => {
         });
       }
 
-      req.login(user, { session: false }, (error) => {
-        if (error) {
-          res.send(error);
-        }
-        let token = generateJWTToken(user.toJSON());
-        return res.json({ user, token });
-      });
+      // Fetch and log populated user data for debugging
+      Users.findById(user._id)
+        .populate("favorite_movies")
+        .then((populatedUser) => {
+          console.log("Populated User:", populatedUser);
+          // Proceed without using populated data yet
+          req.login(user, { session: false }, (error) => {
+            if (error) {
+              res.send(error);
+            }
+            let token = generateJWTToken(user.toJSON());
+            return res.json({ user, token });
+          });
+        })
+        .catch((err) => {
+          console.error("Error populating user:", err);
+          return res.status(500).json({ error: "Error populating user" });
+        });
     })(req, res);
   });
 };
