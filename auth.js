@@ -16,38 +16,30 @@ let generateJWTToken = (user) => {
 };
 
 /* POST login. */
-module.exports = (router) => {
-  router.post("/login", (req, res) => {
-    passport.authenticate("local", { session: false }, (error, user, info) => {
-      console.log(user);
-      if (error || !user) {
-        return res.status(400).json({
-          message: "Something went wrong",
-          user: user,
-        });
-      }
+router.post("/login", async (req, res) => {
+  try {
+    const populatedUser = await Users.findById(req.user._id)
+      .populate("favorite_movies")
+      .exec();
 
-      // Use Mongoose to find the user by ID and populate 'favorite_movies'
-      console.log("user id ", user._id);
-      Users.findById(user._id)
-        .populate("favorite_movies")
-        .exec((err, populatedUser) => {
-          if (err) {
-            return res.status(500).send(err);
-          }
-          if (!populatedUser) {
-            return res.status(400).send("User not found");
-          }
+    if (!populatedUser) {
+      return res.status(400).send("User not found");
+    }
 
-          req.login(populatedUser, { session: false }, (error) => {
-            if (error) {
-              res.send(error);
-            }
-            // Ensure you are sending the populated user object
-            let token = generateJWTToken(populatedUser.toJSON());
-            return res.json({ user: populatedUser, token });
-          });
-        });
-    })(req, res);
-  });
-};
+    await new Promise((resolve, reject) => {
+      req.login(populatedUser, { session: false }, (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      });
+    });
+
+    let token = generateJWTToken(populatedUser.toJSON());
+    return res.json({ user: populatedUser, token });
+  } catch (error) {
+    console.error("Login error:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
