@@ -22,25 +22,13 @@ module.exports = (router) => {
           user: user,
         });
       }
-      Users.findById(user._id)
-        .populate("favorite_movies")
-        .exec((err, populatedUser) => {
-          if (err) {
-            return res.status(500).send(err);
-          }
-          if (!populatedUser) {
-            return res.status(400).send("User not found");
-          }
-
-          req.login(populatedUser, { session: false }, (error) => {
-            if (error) {
-              res.send(error);
-            }
-            // Ensure you are sending the populated user object
-            let token = generateJWTToken(populatedUser.toJSON());
-            return res.json({ user: populatedUser, token });
-          });
-        });
+      req.login(user, { session: false }, (error) => {
+        if (error) {
+          res.send(error);
+        }
+        let token = generateJWTToken(user.toJSON());
+        return res.json({ user, token });
+      });
     })(req, res);
   });
 };
