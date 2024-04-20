@@ -20,7 +20,11 @@ const Genres = Models.Genre;
 
 const cors = require("cors");
 
-let allowedOrigins = ["http://localhost8080", "http://testsite.com"];
+let allowedOrigins = [
+  "http://localhost8080",
+  "http://localhost1234",
+  "http://testsite.com",
+];
 app.use(
   cors({
     origin: (origin, callback) => {
