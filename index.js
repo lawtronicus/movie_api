@@ -7,10 +7,8 @@ const express = require("express"),
 const { Movie } = require("./models.js");
 mongoose = require("mongoose");
 Models = require("./models.js");
-
 const { check, validationResult } = require("express-validator");
 const { isUnique } = require("./validation.js");
-
 const app = express();
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -19,12 +17,16 @@ const Actors = Models.Actor;
 const Genres = Models.Genre;
 
 const cors = require("cors");
+app.use(cors());
 
+/*
 let allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:1234",
   "http://testsite.com",
 ];
+
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -38,7 +40,7 @@ app.use(
     },
   })
 );
-
+*/
 // set to local connection
 //mongoose.connect("mongodb://localhost:27017/mfDB");
 

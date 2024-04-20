@@ -16,7 +16,9 @@ let generateJWTToken = (user) => {
 };
 
 const cors = require("cors");
+app.use(cors());
 
+/*
 let allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:1234",
@@ -35,6 +37,7 @@ app.use(
     },
   })
 );
+*/
 
 /* POST login. */
 module.exports = (router) => {
