@@ -28,7 +28,10 @@ module.exports = (router) => {
 
       // Fetch and log populated user data for debugging
       Users.findById(user._id)
-        .populate("favorite_movies")
+        .populate({
+          path: "favorite_movies",
+          select: "title", // Only populate the title field from the movies
+        })
         .then((populatedUser) => {
           console.log("Populated User:", populatedUser);
           // Proceed without using populated data yet
