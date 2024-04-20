@@ -1,6 +1,3 @@
-Models = require("./models.js");
-const Users = Models.User;
-
 const jwtSecret = "your_jwt_secret";
 
 const jwt = require("jsonwebtoken");
@@ -16,30 +13,23 @@ let generateJWTToken = (user) => {
 };
 
 /* POST login. */
-router.post("/login", async (req, res) => {
-  try {
-    const populatedUser = await Users.findById(req.user._id)
-      .populate("favorite_movies")
-      .exec();
+module.exports = (router) => {
+  router.post("/login", (req, res) => {
+    passport.authenticate("local", { session: false }, (error, user, info) => {
+      if (error || !user) {
+        return res.status(400).json({
+          message: "Something went wrong",
+          user: user,
+        });
+      }
 
-    if (!populatedUser) {
-      return res.status(400).send("User not found");
-    }
-
-    await new Promise((resolve, reject) => {
-      req.login(populatedUser, { session: false }, (error) => {
+      req.login(user, { session: false }, (error) => {
         if (error) {
-          reject(error);
-        } else {
-          resolve();
+          res.send(error);
         }
+        let token = generateJWTToken(user.toJSON());
+        return res.json({ user, token });
       });
-    });
-
-    let token = generateJWTToken(populatedUser.toJSON());
-    return res.json({ user: populatedUser, token });
-  } catch (error) {
-    console.error("Login error:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+    })(req, res);
+  });
+};
