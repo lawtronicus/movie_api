@@ -33,13 +33,17 @@ module.exports = (router) => {
           select: "title", // Only populate the title field from the movies
         })
         .then((populatedUser) => {
-          console.log("Populated User:", populatedUser);
-          // Proceed without using populated data yet
+          const favoriteMovieTitles = populatedUser.favorite_movies.map(
+            (movie) => movie.title
+          );
+
           req.login(user, { session: false }, (error) => {
             if (error) {
               res.send(error);
             }
             let token = generateJWTToken(user.toJSON());
+            populatedUser = populatedUser.toObject(); // Convert to plain object if needed
+            populatedUser.favorite_movies = favoriteMovieTitles;
             return res.json({ user: populatedUser, token });
           });
         })
