@@ -15,30 +15,6 @@ let generateJWTToken = (user) => {
   });
 };
 
-const cors = require("cors");
-app.use(cors());
-
-/*
-let allowedOrigins = [
-  "http://localhost:8080",
-  "http://localhost:1234",
-  "http://testsite.com",
-];
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        let message =
-          "The CORS policy for this application doesn't allow access form origin " +
-          origin;
-      }
-      return callback(null, true);
-    },
-  })
-);
-*/
-
 /* POST login. */
 module.exports = (router) => {
   router.post("/login", (req, res) => {

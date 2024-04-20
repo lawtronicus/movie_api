@@ -17,15 +17,12 @@ const Actors = Models.Actor;
 const Genres = Models.Genre;
 
 const cors = require("cors");
-app.use(cors());
 
-/*
 let allowedOrigins = [
   "http://localhost:8080",
   "http://localhost:1234",
   "http://testsite.com",
 ];
-
 
 app.use(
   cors({
@@ -40,7 +37,7 @@ app.use(
     },
   })
 );
-*/
+
 // set to local connection
 //mongoose.connect("mongodb://localhost:27017/mfDB");
 
