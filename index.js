@@ -522,19 +522,13 @@ app.delete(
         { new: true }
       ).populate({
         path: "favorite_movies",
-        select: "title", // Only fetch the title of each favorite movie
       });
 
       if (!updatedUser) {
         return res.status(404).send(`User with ID ${userId} not found.`);
       }
 
-      const userObj = updatedUser.toObject();
-      userObj.favorite_movies = updatedUser.favorite_movies.map(
-        (movie) => movie.title
-      );
-
-      res.json(userObj);
+      res.json(updatedUser);
     } catch (err) {
       console.error(err);
       res.status(500).send("Error: " + err);
