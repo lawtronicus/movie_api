@@ -37,8 +37,6 @@ module.exports = (router) => {
               res.send(error);
             }
             let token = generateJWTToken(user.toJSON());
-            populatedUser = populatedUser.toObject(); // Convert to plain object if needed
-            populatedUser.favorite_movies = favoriteMovieTitles;
             return res.json({ user: populatedUser, token });
           });
         })
