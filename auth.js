@@ -30,13 +30,8 @@ module.exports = (router) => {
       Users.findById(user._id)
         .populate({
           path: "favorite_movies",
-          select: "title", // Only populate the title field from the movies
         })
         .then((populatedUser) => {
-          const favoriteMovieTitles = populatedUser.favorite_movies.map(
-            (movie) => movie.title
-          );
-
           req.login(user, { session: false }, (error) => {
             if (error) {
               res.send(error);
