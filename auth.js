@@ -1,21 +1,38 @@
-Models = require("./models.js");
+const Models = require("./models.js");
+
+/**
+ * Load environment variables from a .env file into process.env
+ * This is necessary to access environment-specific variables like JWT_SECRET.
+ * Using 'dotenv' allows you to securely manage these variables outside of the source code.
+ */
+require("dotenv").config();
+
 const Users = Models.User;
 
-const jwtSecret = "your_jwt_secret";
+// Use environment variable for JWT secret, with a fallback for development purposes
+const jwtSecret = process.env.JWT_SECRET || "default_secret_key";
 
 const jwt = require("jsonwebtoken");
-passport = require("passport");
+const passport = require("passport");
 require("./passport");
 
+/**
+ * Generates a JWT token for a user.
+ * @param {object} user - The user object for whom the token is generated.
+ * @returns {string} - The generated JWT token.
+ */
 let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
-    subject: String(user._id),
-    expiresIn: "7d",
-    algorithm: "HS256",
+    subject: String(user._id), // The user ID is used as the token subject
+    expiresIn: "7d", // Token expiration time
+    algorithm: "HS256", // Algorithm used to sign the token
   });
 };
 
-/* POST login. */
+/**
+ * POST login: Authenticates a user and returns a JWT token.
+ * @param {object} router - Express router object.
+ */
 module.exports = (router) => {
   router.post("/login", (req, res) => {
     passport.authenticate("local", { session: false }, (error, user, info) => {
