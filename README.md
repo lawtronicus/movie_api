@@ -1,4 +1,3 @@
-
 # MyFlix Movie API
 
 This is the server-side component of the **MyFlix Movie Application**. The API provides movie data, user management, and user authentication for the application. It's built using Node.js, Express, and MongoDB, with authentication handled by JSON Web Tokens (JWT).
@@ -38,34 +37,34 @@ To set up this API locally:
 
 1. Clone this repository:
 
-   \`\`\`bash
+   ```bash
    git clone https://github.com/lawtronicus/myFlix-Angular-client.git
-   \`\`\`
+   ```
 
 2. Navigate to the project directory:
 
-   \`\`\`bash
+   ```bash
    cd myFlix-Angular-client
-   \`\`\`
+   ```
 
 3. Install the dependencies:
 
-   \`\`\`bash
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 4. Set up your environment variables by creating a `.env` file in the root directory and adding the following:
 
-   \`\`\`bash
+   ```bash
    JWT_SECRET=your_super_secret_key
    CONNECTION_URI=your_mongodb_connection_string
-   \`\`\`
+   ```
 
 5. Start the server:
 
-   \`\`\`bash
+   ```bash
    npm start
-   \`\`\`
+   ```
 
    The API will be running at `http://localhost:8080`.
 
@@ -117,9 +116,9 @@ This API uses **JWT (JSON Web Tokens)** for authentication. Upon successful logi
 
 Example:
 
-\`\`\`bash
+```bash
 Authorization: Bearer <token>
-\`\`\`
+```
 
 ### Login
 
@@ -127,12 +126,12 @@ Authorization: Bearer <token>
 
   Request body:
 
-  \`\`\`json
+  ```json
   {
     "email": "user@example.com",
     "password": "password123"
   }
-  \`\`\`
+  ```
 
 ## Error Handling
 
@@ -148,11 +147,11 @@ The API returns the following HTTP status codes in its responses:
 
 Errors are returned in JSON format:
 
-\`\`\`json
+```json
 {
   "message": "Error description"
 }
-\`\`\`
+```
 
 ## License
 
